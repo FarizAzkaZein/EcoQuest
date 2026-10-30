@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e4d34">
+  <title>EcoQuest — Belajar, Bertumbuh, Menjaga Bumi</title>
+  <meta name="description" content="Platform edukasi lingkungan modern. Pelajari kebiasaan hijau, ikuti kuis interaktif, dan rawat pohon virtualmu.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              50: '#f2f7f4',
+              100: '#e1ede6',
+              200: '#c5dcd0',
+              300: '#9ec1b0',
+              400: '#72a08a',
+              500: '#4e826b',
+              600: '#3a6854',
+              700: '#2f5344',
+              800: '#1e4d34',
+              900: '#183a29',
+              950: '#0c2016',
+            },
+            sage: {
+              50: '#f5f7f5',
+              100: '#e6ebe6',
+              200: '#d0ded0',
+              300: '#a8c3a8',
+              400: '#87a987',
+              500: '#688c68',
+            },
+            warm: {
+              bg: '#faf8f5',
+              card: '#ffffff',
+              subtle: '#f3efea',
+              border: '#e6e1da',
+            }
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            serif: ['"Fraunces"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-forest-200 selection:text-forest-900">
+
+  <!-- ==================== SITE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full glass-card border-b border-warm-border/80 transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+      <!-- Brand Logo -->
+      <a href="#beranda" class="flex items-center gap-3 group" aria-label="EcoQuest Beranda">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden transition-colors">
+          <img src="images/logo.png" alt="EcoQuest Logo" class="w-full h-full object-contain">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif-title font-bold text-xl tracking-tight text-forest-950 flex items-center gap-0.5">
+            Eco<span class="text-forest-600 font-serif-title font-normal">Quest</span>
+          </span>
+          <span class="text-[10px] tracking-widest uppercase font-semibold text-forest-500 -mt-1">Sustainability</span>
+        </div>
+      </a>
+
+      <!-- Main Navigation -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2 bg-warm-subtle/80 p-1.5 rounded-full border border-warm-border/60" aria-label="Navigasi Utama">
+        <a href="#beranda" data-nav="home" class="nav-link px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-forest-900 hover:bg-white hover:shadow-sm transition-all duration-200" data-i18n="navHome">Beranda</a>
+        <a href="#fitur" data-nav="features" class="nav-link px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-forest-900 hover:bg-white hover:shadow-sm transition-all duration-200" data-i18n="navFeatures">Fitur</a>
+        <a href="#kuis" data-nav="quiz" class="nav-link px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-forest-900 hover:bg-white hover:shadow-sm transition-all duration-200" data-i18n="navQuiz">Kuis</a>
+        <a href="#pustaka" data-nav="library" class="nav-link px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-forest-900 hover:bg-white hover:shadow-sm transition-all duration-200" data-i18n="navLibrary">Pustaka</a>
+        <a href="#dampak" data-nav="impact" class="nav-link px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-forest-900 hover:bg-white hover:shadow-sm transition-all duration-200" data-i18n="navImpact">Dampak</a>
+        <a href="#hutanku" id="forestNav" data-nav="forest" class="nav-link hidden px-4 py-2 rounded-full text-xs font-semibold text-forest-800 bg-forest-100 hover:bg-forest-200 transition-all duration-200 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 stroke-forest-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          <span data-i18n="forest">Hutanku</span>
+        </a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="languageBtn" type="button" class="px-3 py-1.5 rounded-lg border border-warm-border text-xs font-bold text-forest-800 hover:bg-warm-subtle transition-colors flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.6 9h16.8M3.6 15h16.8"/>
+          </svg>
+          <span id="langLabel">EN</span>
+        </button>
+
+        <button id="loginBtn" type="button" class="px-4 py-2 rounded-xl bg-forest-800 text-white text-xs font-bold hover:bg-forest-700 transition-all shadow-sm shadow-forest-900/10 flex items-center gap-2">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+          </svg>
+          <span data-i18n="login">Masuk</span>
+        </button>
+
+        <button id="logoutBtn" type="button" class="hidden px-4 py-2 rounded-xl border border-rose-200 text-rose-700 hover:bg-rose-50 text-xs font-bold transition-all flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+          </svg>
+          <span data-i18n="logout">Keluar</span>
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobileMenuBtn" type="button" class="md:hidden p-2 rounded-lg border border-warm-border text-slate-700" aria-label="Toggle Navigation">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileNav" class="hidden md:hidden border-t border-warm-border bg-white px-4 py-3 space-y-2">
+      <a href="#beranda" data-nav="home" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-warm-subtle" data-i18n="navHome">Beranda</a>
+      <a href="#fitur" data-nav="features" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-warm-subtle" data-i18n="navFeatures">Fitur</a>
+      <a href="#kuis" data-nav="quiz" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-warm-subtle" data-i18n="navQuiz">Kuis</a>
+      <a href="#pustaka" data-nav="library" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-warm-subtle" data-i18n="navLibrary">Pustaka</a>
+      <a href="#dampak" data-nav="impact" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-warm-subtle" data-i18n="navImpact">Dampak</a>
+      <a href="#hutanku" id="mobileForestNav" data-nav="forest" class="hidden px-3 py-2 rounded-lg text-sm font-semibold text-forest-800 bg-forest-50" data-i18n="forest">Hutanku</a>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="flex-grow">
+
+    <!-- ================= 1. BERANDA ================= -->
+    <section id="beranda" class="page-section active">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-16">
+
+        <!-- HERO SECTION -->
+        <div class="grid lg:grid-cols-12 gap-8 items-center mb-16">
+
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forest-100/80 border border-forest-200/60 text-forest-800 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-forest-600 animate-pulse"></span>
+              <span data-i18n="heroEyebrow">Edukasi Lingkungan Berkelanjutan</span>
+            </div>
+
+            <h1 class="font-serif-title text-4xl sm:text-5xl lg:text-6xl font-normal text-forest-950 leading-[1.12] tracking-tight">
+              Bumi yang lebih baik dimulai dari <em class="italic text-forest-700 font-serif-title">kebiasaanmu.</em>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 max-w-xl font-normal leading-relaxed" data-i18n="heroText">
+              Kenali lingkungan, uji pengetahuanmu melalui kuis interaktif, dan bangun kebiasaan hijau satu langkah setiap hari secara konsisten.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="#kuis" class="btn-nav px-6 py-3.5 rounded-xl bg-forest-800 text-white font-semibold text-sm hover:bg-forest-700 transition-all shadow-lg shadow-forest-900/15 flex items-center gap-2">
+                <span data-i18n="startQuiz">Mulai Kuis</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+              <a href="#pustaka" class="btn-nav px-6 py-3.5 rounded-xl bg-white border border-warm-border text-forest-900 font-semibold text-sm hover:bg-warm-subtle transition-all flex items-center gap-2">
+                <span data-i18n="exploreLibrary">Jelajahi Pustaka</span>
+              </a>
+            </div>
+
+            <div class="flex items-center gap-4 pt-4 border-t border-warm-border/60 text-xs text-slate-500">
+              <div class="flex -space-x-2">
+                <div class="w-7 h-7 rounded-full bg-forest-200 border-2 border-white flex items-center justify-center font-bold text-[10px] text-forest-800">ECO</div>
+                <div class="w-7 h-7 rounded-full bg-sage-300 border-2 border-white flex items-center justify-center font-bold text-[10px] text-forest-900">ID</div>
+                <div class="w-7 h-7 rounded-full bg-forest-800 border-2 border-white flex items-center justify-center font-bold text-[10px] text-white">10k</div>
+              </div>
+              <span data-i18n="heroNote">Bergabung bersama komunitas menjaga masa depan bumi.</span>
+            </div>
+          </div>
+
+          <!-- Hero Visual -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative grid grid-cols-2 gap-3.5 p-2 bg-warm-subtle/50 rounded-3xl border border-warm-border/80 shadow-xl shadow-forest-950/5">
+
+              <div class="space-y-3.5">
+                <div class="relative h-48 sm:h-56 rounded-2xl overflow-hidden shadow-sm group">
+                  <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" alt="Planting seedling" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <span class="absolute bottom-3 left-3 text-xs font-semibold text-white/90">Aksi Nyata</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white border border-warm-border shadow-sm space-y-1">
+                  <div class="flex items-center justify-between text-forest-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span class="text-[10px] font-bold uppercase tracking-wider bg-forest-50 px-2 py-0.5 rounded text-forest-700">Dampak</span>
+                  </div>
+                  <p class="font-serif-title font-semibold text-xl text-forest-950">1,240+</p>
+                  <p class="text-[11px] text-slate-500">Pohon virtual ditumbuhkan</p>
+                </div>
+              </div>
+
+              <div class="space-y-3.5 pt-6">
+                <div class="p-4 rounded-2xl bg-forest-900 text-white shadow-sm space-y-2">
+                  <svg class="w-5 h-5 text-sage-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                  </svg>
+                  <p class="text-xs font-semibold text-sage-200">Pustaka Hijau</p>
+                  <p class="text-xs text-slate-300 leading-snug">Modul edukasi singkat & berbasis data ilmiah.</p>
+                </div>
+
+                <div class="relative h-48 sm:h-56 rounded-2xl overflow-hidden shadow-sm group">
+                  <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80" alt="Green leaf texture" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent"></div>
+                  <span class="absolute bottom-3 left-3 text-xs font-semibold text-white/90">Konsistensi</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- DAILY REMINDER -->
+        <div class="mb-16 p-4 sm:p-5 rounded-2xl bg-white border border-warm-border shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center text-amber-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-forest-700" data-i18n="dailyTitle">Pengingat Hari Ini</span>
+              <p id="dailyReminder" class="text-sm font-medium text-forest-950">Bawa botol minum sendiri saat bepergian.</p>
+            </div>
+          </div>
+          <a href="#kuis" class="btn-nav inline-flex items-center gap-1.5 text-xs font-bold text-forest-800 hover:text-forest-600 transition-colors self-start sm:self-auto">
+            <span>Ambil Tantangan Hari Ini</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- FACT SECTION -->
+        <div id="fakta" class="mb-16 space-y-8 scroll-mt-24">
+          <div class="space-y-2">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-forest-600 font-sans" data-i18n="featureEyebrow">MULAI DARI HAL SEDERHANA</span>
+            <h2 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 tracking-tight" data-i18n="featurePageTitle">Pengetahuan yang bisa diterapkan.</h2>
+            <p class="text-sm text-slate-500 max-w-2xl font-normal leading-relaxed" data-i18n="featurePageText">
+              Pahami masalah lingkungan melalui fakta ilmiah sederhana dan temukan kebiasaan kecil yang bisa kamu lakukan setiap hari.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-8 rounded-2xl bg-white border border-warm-border/80 shadow-sm hover:shadow-md transition-shadow space-y-4">
+              <div class="w-10 h-10 rounded-xl bg-forest-50/80 border border-forest-100/60 flex items-center justify-center text-forest-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </div>
+              <h3 class="font-serif-title text-xl font-bold text-forest-950" data-i18n="card1Title">Daur Ulang Tepat</h3>
+              <p class="text-xs text-slate-500 leading-relaxed font-normal" data-i18n="card1Text">
+                Memilah sampah secara benar membantu bahan plastik dan kertas masuk ke rantai daur ulang yang bersih.
+              </p>
+            </div>
+
+            <div class="p-8 rounded-2xl bg-white border border-warm-border/80 shadow-sm hover:shadow-md transition-shadow space-y-4">
+              <div class="w-10 h-10 rounded-xl bg-forest-50/80 border border-forest-100/60 flex items-center justify-center text-forest-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 class="font-serif-title text-xl font-bold text-forest-950" data-i18n="card2Title">Hemat Listrik</h3>
+              <p class="text-xs text-slate-500 leading-relaxed font-normal" data-i18n="card2Text">
+                Mematikan perangkat elektronik standby mengurangi konsumsi energi fosil tak terpakai.
+              </p>
+            </div>
+
+            <div class="p-8 rounded-2xl bg-white border border-warm-border/80 shadow-sm hover:shadow-md transition-shadow space-y-4">
+              <div class="w-10 h-10 rounded-xl bg-forest-50/80 border border-forest-100/60 flex items-center justify-center text-forest-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+              </div>
+              <h3 class="font-serif-title text-xl font-bold text-forest-950" data-i18n="card3Title">Gunakan Reusable</h3>
+              <p class="text-xs text-slate-500 leading-relaxed font-normal" data-i18n="card3Text">
+                Membawa botol dan kantong sendiri dapat mengurangi ratusan sampah sekali pakai setiap tahunnya.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#f2f7f4]/80 border border-[#c5dcd0] flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#183a29] text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="space-y-0.5">
+              <h4 class="font-serif-title text-base font-bold text-[#0c2016]" data-i18n="calloutTitle">Tidak harus langsung sempurna.</h4>
+              <p class="text-xs text-slate-600 font-normal leading-relaxed" data-i18n="calloutText">Pilih satu kebiasaan, lakukan dengan konsisten, lalu tambah langkah berikutnya saat kamu sudah terbiasa.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURES BENTO GRID -->
+        <div class="space-y-6" id="fitur">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="discover">Jelajahi EcoQuest</span>
+              <h2 class="font-serif-title text-2xl sm:text-3xl font-normal text-forest-950 mt-1" data-i18n="discoverTitle">Temukan cara baru untuk peduli.</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 max-w-sm" data-i18n="discoverText">Belajar tidak harus rumit. Pilih langkah yang ingin kamu mulai hari ini.</p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <a href="#fakta" class="feature-card group p-6 rounded-2xl bg-white border border-warm-border hover:border-forest-300 hover:shadow-lg hover:shadow-forest-900/5 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-11 h-11 rounded-xl bg-forest-50 border border-forest-100 flex items-center justify-center text-forest-800 group-hover:bg-forest-800 group-hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                  </div>
+                  <span class="text-[10px] font-bold tracking-widest text-slate-400">01 / EXPLORE</span>
+                </div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="featureTitle">Fakta & Edukasi</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-6" data-i18n="featureText">Kenali fakta dan langkah sederhana untuk hidup lebih ramah lingkungan.</p>
+              </div>
+              <span class="text-xs font-bold text-forest-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform" data-i18n="learnMore">Kenali lebih lanjut &rarr;</span>
+            </a>
+
+            <a href="#kuis" class="feature-card group p-6 rounded-2xl bg-white border border-warm-border hover:border-forest-300 hover:shadow-lg hover:shadow-forest-900/5 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-800 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <span class="text-[10px] font-bold tracking-widest text-slate-400">02 / CHALLENGE</span>
+                </div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="quizTitle">Kuis Interaktif</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-6" data-i18n="quizText">Uji pemahamanmu tentang sampah, energi, air, dan keanekaragaman hayati.</p>
+              </div>
+              <span class="text-xs font-bold text-amber-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform" data-i18n="startNow">Mulai sekarang &rarr;</span>
+            </a>
+
+            <a href="#pustaka" class="feature-card group p-6 rounded-2xl bg-white border border-warm-border hover:border-forest-300 hover:shadow-lg hover:shadow-forest-900/5 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-800 group-hover:bg-sky-700 group-hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                  </div>
+                  <span class="text-[10px] font-bold tracking-widest text-slate-400">03 / LEARN</span>
+                </div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="libraryTitle">Pustaka Modul</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-6" data-i18n="libraryText">Baca materi ringkas dan temukan kebiasaan yang bisa diterapkan sehari-hari.</p>
+              </div>
+              <span class="text-xs font-bold text-sky-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform" data-i18n="readMaterials">Baca materi &rarr;</span>
+            </a>
+
+            <a href="#dampak" class="feature-card group p-6 rounded-2xl bg-white border border-warm-border hover:border-forest-300 hover:shadow-lg hover:shadow-forest-900/5 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-800 group-hover:bg-rose-700 group-hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                  </div>
+                  <span class="text-[10px] font-bold tracking-widest text-slate-400">04 / IMPACT</span>
+                </div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="impactTitle">Dampak & Pohon</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-6" data-i18n="impactText">Lihat gambaran kontribusi belajar dan kebiasaan hijau di EcoQuest.</p>
+              </div>
+              <span class="text-xs font-bold text-rose-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform" data-i18n="seeImpact">Lihat dampak &rarr;</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- DAMPAK RINGKAS DI BERANDA -->
+        <div id="dampak-ringkas" class="pt-20 scroll-mt-24">
+          <div class="max-w-2xl mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="impactEyebrow">LANGKAH KECIL, ARTI BESAR</span>
+            <h2 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 mt-2 mb-3" data-i18n="impactPageTitle">Perubahan dimulai dari kesadaran.</h2>
+            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="impactPageText">EcoQuest mengajak kita semua untuk belajar, mencoba, dan membangun kebiasaan yang lebih bertanggung jawab secara kolektif.</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+            <div class="p-8 rounded-3xl bg-white border border-warm-border shadow-sm relative overflow-hidden flex flex-col justify-between h-64 hover:border-forest-300 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-4xl font-serif-title text-forest-200 font-bold">01</span>
+                <div class="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center text-forest-800">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="impactOneTitle">Kenali</h3>
+                <p class="text-xs text-slate-600 leading-relaxed" data-i18n="impactOneText">Pahami isu lingkungan secara mendalam melalui materi ringkas berbasis fakta terverifikasi.</p>
+              </div>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-forest-800 text-white shadow-sm relative overflow-hidden flex flex-col justify-between h-64 hover:bg-forest-900 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-4xl font-serif-title text-forest-600 font-bold">02</span>
+                <div class="w-10 h-10 rounded-xl bg-forest-700 flex items-center justify-center text-emerald-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-serif-title text-xl font-normal text-white mb-2" data-i18n="impactTwoTitle">Pelajari</h3>
+                <p class="text-xs text-sage-200 leading-relaxed" data-i18n="impactTwoText">Uji pemahamanmu dengan kuis interaktif dan pahami alasan ilmiah di balik setiap jawaban.</p>
+              </div>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-white border border-warm-border shadow-sm relative overflow-hidden flex flex-col justify-between h-64 hover:border-forest-300 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-4xl font-serif-title text-forest-200 font-bold">03</span>
+                <div class="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center text-forest-800">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="impactThreeTitle">Terapkan</h3>
+                <p class="text-xs text-slate-600 leading-relaxed" data-i18n="impactThreeText">Ubah pengetahuan yang didapat menjadi kebiasaan hijau nyata yang konsisten sehari-hari.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="p-5 rounded-2xl bg-warm-subtle/80 border border-warm-border flex items-start gap-3">
+            <svg class="w-5 h-5 text-slate-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-xs text-slate-500 leading-relaxed" data-i18n="impactDisclaimer">
+              Catatan: Progres dan dampak lingkungan pada demo EcoQuest disimpan secara lokal di browser kamu sebagai gambaran komitmen pribadi belajar.
+            </p>
+          </div>
+        </div>
+
+        <!-- QUOTE -->
+        <div class="mt-16 p-8 sm:p-12 rounded-3xl bg-forest-900 text-white relative overflow-hidden flex flex-col items-center text-center">
+          <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-forest-800/40 blur-3xl pointer-events-none"></div>
+          <svg class="w-8 h-8 text-sage-300 mb-4 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+          <p class="font-serif-title text-xl sm:text-2xl lg:text-3xl font-normal max-w-3xl leading-snug text-sage-100" data-i18n="quote">
+            "Kita tidak perlu menjadi sempurna untuk mulai menjaga bumi. Kita hanya perlu mulai."
+          </p>
+          <span class="mt-4 text-xs tracking-widest font-semibold uppercase text-sage-300">EcoQuest Manifesto</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 2. KUIS ================= -->
+    <section id="kuis" class="page-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="max-w-2xl mb-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="quizEyebrow">COBA DAN PELAJARI</span>
+          <h1 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 mt-2 mb-3" data-i18n="quizPageTitle">Seberapa hijau pengetahuanmu?</h1>
+          <p class="text-sm text-slate-600 leading-relaxed" data-i18n="quizPageText">Pilih topik kuis di bawah ini, jawab pertanyaan, dan pelajari penjelasan komprehensif di setiap akhir soal.</p>
+        </div>
+
+        <div id="quizCategories" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Dynamically populated categories -->
+        </div>
+
+        <div id="quizArea" class="hidden max-w-3xl mx-auto mt-10 p-6 sm:p-10 rounded-3xl bg-white border border-warm-border shadow-xl shadow-forest-950/5">
+          <!-- Dynamically populated question state -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 3. PUSTAKA ================= -->
+    <section id="pustaka" class="page-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="max-w-2xl mb-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="libraryEyebrow">RUANG BELAJAR</span>
+          <h1 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 mt-2 mb-3" data-i18n="libraryPageTitle">Baca sedikit, pahami lebih banyak.</h1>
+          <p class="text-sm text-slate-600 leading-relaxed" data-i18n="libraryPageText">Materi singkat terstruktur untuk membantumu mengenal isu lingkungan dan mengambil tindakan nyata.</p>
+        </div>
+
+        <div class="max-w-xl mb-10 p-5 rounded-2xl bg-white border border-warm-border shadow-sm">
+          <div class="flex items-center justify-between text-xs font-bold mb-2">
+            <span class="text-forest-950" data-i18n="yourProgress">Progres Belajarmu</span>
+            <span id="libraryCount" class="text-forest-600">0/5 selesai</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-warm-subtle overflow-hidden">
+            <div id="libraryProgressBar" class="h-full bg-forest-700 progress-bar-inner rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="libraryGrid" class="grid md:grid-cols-2 gap-6">
+          <!-- Dynamically populated modules -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4. DAMPAK ================= -->
+    <section id="dampak" class="page-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="max-w-2xl mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="impactEyebrow">LANGKAH KECIL, ARTI BESAR</span>
+          <h1 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 mt-2 mb-3" data-i18n="impactPageTitle">Perubahan dimulai dari kesadaran.</h1>
+          <p class="text-sm text-slate-600 leading-relaxed" data-i18n="impactPageText">EcoQuest mengajak kita semua untuk belajar, mencoba, dan membangun kebiasaan yang lebih bertanggung jawab secara kolektif.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+          <div class="p-8 rounded-3xl bg-white border border-warm-border shadow-sm relative overflow-hidden flex flex-col justify-between h-64">
+            <span class="text-4xl font-serif-title text-forest-200 font-bold">01</span>
+            <div>
+              <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="impactOneTitle">Kenali</h3>
+              <p class="text-xs text-slate-600 leading-relaxed" data-i18n="impactOneText">Pahami isu lingkungan secara mendalam melalui materi ringkas berbasis fakta terverifikasi.</p>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-forest-800 text-white shadow-sm relative overflow-hidden flex flex-col justify-between h-64">
+            <span class="text-4xl font-serif-title text-forest-600 font-bold">02</span>
+            <div>
+              <h3 class="font-serif-title text-xl font-normal text-white mb-2" data-i18n="impactTwoTitle">Pelajari</h3>
+              <p class="text-xs text-sage-200 leading-relaxed" data-i18n="impactTwoText">Uji pemahamanmu dengan kuis interaktif dan pahami alasan ilmiah di balik setiap jawaban.</p>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-warm-border shadow-sm relative overflow-hidden flex flex-col justify-between h-64">
+            <span class="text-4xl font-serif-title text-forest-200 font-bold">03</span>
+            <div>
+              <h3 class="font-serif-title text-xl font-normal text-forest-950 mb-2" data-i18n="impactThreeTitle">Terapkan</h3>
+              <p class="text-xs text-slate-600 leading-relaxed" data-i18n="impactThreeText">Ubah pengetahuan yang didapat menjadi kebiasaan hijau nyata yang konsisten sehari-hari.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="p-5 rounded-2xl bg-warm-subtle/80 border border-warm-border flex items-start gap-3">
+          <svg class="w-5 h-5 text-slate-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <p class="text-xs text-slate-500 leading-relaxed" data-i18n="impactDisclaimer">
+            Catatan: Progres dan dampak lingkungan pada demo EcoQuest disimpan secara lokal di browser kamu sebagai gambaran komitmen pribadi belajar.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 5. HUTANKU ================= -->
+    <section id="hutanku" class="page-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="max-w-2xl mb-8">
+          <span class="text-xs font-bold uppercase tracking-widest text-forest-600" data-i18n="forestEyebrow">RUANG PERTUMBUHANMU</span>
+          <h1 class="font-serif-title text-3xl sm:text-4xl font-normal text-forest-950 mt-1">
+            <span data-i18n="hello">Halo</span>,
+            <span id="forestName" class="text-forest-700 font-serif-title">Teman Bumi</span>
+          </h1>
+          <p class="text-sm text-slate-600 leading-relaxed mt-2" data-i18n="forestIntro">Pohon virtualmu tumbuh seiring proses belajarmu. Rawat pengetahuanmu satu langkah demi satu langkah.</p>
+        </div>
+
+        <div id="forestStats" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <!-- Dynamically populated stats -->
+        </div>
+
+        <!-- Virtual Tree -->
+        <div id="treeScene" class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-forest-900 via-forest-950 to-slate-900 text-white shadow-xl mb-10 grid lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
+
+          <div class="lg:col-span-5 flex flex-col items-center justify-center min-h-[260px] relative">
+            <div id="treeSvgContainer" class="w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center transition-all duration-700 transform hover:scale-105">
+              <!-- Rendered SVG Tree Stage by JS -->
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-4">
+            <span class="text-[10px] font-bold tracking-widest uppercase text-sage-300" data-i18n="yourTree">POHON VIRTUALMU</span>
+            <h2 id="treeStageName" class="font-serif-title text-3xl font-normal text-white">Benih</h2>
+            <p id="treeDescription" class="text-xs sm:text-sm text-sage-100 leading-relaxed">Setiap pohon besar dimulai dari benih kecil. Mulailah kuis dan baca pustaka untuk tumbuh.</p>
+
+            <div class="pt-2">
+              <div class="flex items-center justify-between text-xs font-bold mb-2">
+                <span class="text-sage-300" data-i18n="growth">Pertumbuhan</span>
+                <span id="growthValue" class="text-white">0%</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-forest-800/80 overflow-hidden p-0.5 border border-forest-700">
+                <div id="growthBar" class="h-full bg-gradient-to-r from-sage-400 to-emerald-400 rounded-full progress-bar-inner" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-sage-300/80 italic pt-2" data-i18n="treeHint">Belajar kuis dan selesaikan modul pustaka untuk menaikkan level pohonmu.</p>
+          </div>
+        </div>
+
+        <!-- Daily Actions & Journey -->
+        <div class="grid lg:grid-cols-2 gap-8">
+
+          <div class="p-6 sm:p-8 rounded-3xl bg-white border border-warm-border shadow-sm space-y-4">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-forest-600" data-i18n="dailyActions">KEBIASAAN HARIAN</span>
+              <h2 class="font-serif-title text-2xl font-normal text-forest-950 mt-1" data-i18n="actionsTitle">Apa yang sudah kamu lakukan?</h2>
+              <p class="text-xs text-slate-500 mt-1" data-i18n="actionsText">Tandai tindakan yang benar-benar sudah kamu lakukan hari ini untuk mencatat komitmen.</p>
+            </div>
+
+            <div id="actionList" class="space-y-3 pt-2">
+              <!-- Dynamically populated daily action checkboxes -->
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 rounded-3xl bg-white border border-warm-border shadow-sm space-y-4 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-forest-600" data-i18n="yourJourney">PERJALANANMU</span>
+              <h2 class="font-serif-title text-2xl font-normal text-forest-950 mt-1" data-i18n="journeyTitle">Terus bertumbuh.</h2>
+
+              <div id="journeyList" class="space-y-3 mt-4">
+                <!-- Dynamically populated stages -->
+              </div>
+            </div>
+
+            <button id="shareBtn" type="button" class="w-full py-3 px-4 rounded-xl border border-warm-border text-forest-900 font-bold text-xs hover:bg-warm-subtle transition-all flex items-center justify-center gap-2 mt-6" data-i18n="share">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 11-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+              </svg>
+              <span>Bagikan EcoQuest</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== SITE FOOTER ==================== -->
+  <footer class="border-t border-warm-border bg-white mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+
+      <a href="#beranda" class="flex items-center gap-3 group justify-self-start" aria-label="EcoQuest Beranda">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden transition-colors">
+          <img src="images/logo.png" alt="EcoQuest Logo" class="w-full h-full object-contain">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif-title font-bold text-xl tracking-tight text-forest-950 flex items-center gap-0.5">
+            Eco<span class="text-forest-600 font-serif-title font-normal">Quest</span>
+          </span>
+          <span class="text-[10px] tracking-widest uppercase font-semibold text-forest-500 -mt-1">Sustainability</span>
+        </div>
+      </a>
+
+      <p class="text-xs text-slate-500 text-center justify-self-center" data-i18n="footerText">Belajar hari ini, menjaga bumi setiap hari.</p>
+
+      <span class="text-xs text-slate-400 justify-self-end text-right">
+        &copy; <span id="year"></span> EcoQuest.
+        <span data-i18n="footerNote">Proyek Edukasi Lingkungan</span>
+      </span>
+
+    </div>
+  </footer>
+
+  <!-- ==================== LOGIN MODAL ==================== -->
+  <dialog id="loginDialog" class="p-0 rounded-3xl backdrop:bg-forest-950/60 backdrop:backdrop-blur-sm border border-warm-border shadow-2xl max-w-md w-full bg-white">
+    <form id="loginForm" class="p-8 relative space-y-5">
+
+      <button type="button" id="closeLogin" class="absolute top-6 right-6 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-warm-subtle transition-colors" aria-label="Tutup">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="w-12 h-12 rounded-2xl bg-forest-50 border border-forest-100 flex items-center justify-center text-forest-800 mb-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-forest-600" data-i18n="welcome">SELAMAT DATANG</span>
+        <h2 class="font-serif-title text-2xl font-normal text-forest-950 mt-1" data-i18n="loginTitle">Mulai perjalanan hijaumu.</h2>
+        <p class="text-xs text-slate-500 mt-1 leading-relaxed" data-i18n="loginText">Masukkan nama kamu untuk menyimpan progres kuis dan pohon virtual di browser ini.</p>
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="username" class="text-xs font-bold text-forest-900" data-i18n="nameLabel">Nama Kamu</label>
+        <input type="text" id="username" name="username" maxlength="30" required placeholder="Contoh: Rani" class="w-full px-4 py-3 rounded-xl border border-warm-border focus:border-forest-600 focus:ring-2 focus:ring-forest-100 outline-none text-sm font-medium transition-all">
+      </div>
+
+      <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-forest-800 text-white font-bold text-xs hover:bg-forest-700 transition-all shadow-md shadow-forest-900/10 flex items-center justify-center gap-2">
+        <span data-i18n="loginContinue">Lanjutkan</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </button>
+
+      <p class="text-[11px] text-slate-400 text-center leading-normal" data-i18n="loginDisclaimer">
+        Login demo tanpa kata sandi. Progres disimpan di browser yang sedang kamu gunakan.
+      </p>
+    </form>
+  </dialog>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl bg-forest-950 text-white text-xs font-medium shadow-2xl flex items-center gap-3 border border-forest-800 opacity-0 pointer-events-none translate-y-4">
+    <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+    <span id="toastMessage">Pesan berhasil disimpan.</span>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
